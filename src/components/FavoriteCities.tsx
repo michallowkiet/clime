@@ -1,6 +1,6 @@
 import { useFavorite } from "@/hooks/useFavorite";
 import FavoriteCity from "./FavoriteCity";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 const FavoriteCities = () => {
 	const { favorites, deleteFavoriteCity } = useFavorite();
@@ -12,7 +12,7 @@ const FavoriteCities = () => {
 	return (
 		<>
 			<h1 className="text-xl font-bold tracking-tight">Favorite Cities</h1>
-			<ScrollArea className="w-full pb-4">
+			<ScrollArea className="w-full pb-4 h-[120px]">
 				<div className="flex gap-4">
 					{favorites.map((city) => (
 						<FavoriteCity
@@ -25,6 +25,7 @@ const FavoriteCities = () => {
 						/>
 					))}
 				</div>
+				<ScrollBar orientation="horizontal" />
 			</ScrollArea>
 		</>
 	);

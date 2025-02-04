@@ -26,16 +26,16 @@ const WeatherForecast = ({ forecastData }: WeatherForecastProps) => {
 
 	const dailyForecast = getDailyForecast(list);
 
-	const forecastForNext6Days = Object.values(dailyForecast).slice(0, 6);
+	const forecastForNext5Days = Object.values(dailyForecast).slice(0, 5);
 
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>6-Day Forecast</CardTitle>
+				<CardTitle>5-Day Forecast</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className="grid gap-4">
-					{forecastForNext6Days.map((forecast) => (
+					{forecastForNext5Days.map((forecast) => (
 						<div key={forecast.date} className="grid grid-cols-3 gap-4">
 							{/* Date and Weather conditions */}
 							<div className="grid grid-cols-[auto,1fr] items-center justify-items-start">
