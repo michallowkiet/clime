@@ -40,3 +40,13 @@ export const useReverseGeocodeQuery = (coords: Coordinates | null) => {
 		enabled: !!coords,
 	});
 };
+
+export const useSearchLocation = (query: string) => {
+	return useQuery({
+		queryKey: ["searchLocation", query],
+		queryFn: async () => {
+			return await openWeatherAPI.searchLocation(query);
+		},
+		enabled: query.length >= 3,
+	});
+};

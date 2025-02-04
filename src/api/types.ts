@@ -10,6 +10,11 @@ export interface WeatherCondition {
 	icon: string;
 }
 
+export type Wind = {
+	speed: number;
+	deg: number;
+};
+
 export interface WeatherData {
 	coord: Coordinates;
 	weather: WeatherCondition[];
@@ -21,10 +26,7 @@ export interface WeatherData {
 		pressure: number;
 		humidity: number;
 	};
-	wind: {
-		speed: number;
-		deg: number;
-	};
+	wind: Wind;
 	clouds: {
 		all: number;
 	};
@@ -42,20 +44,24 @@ export interface WeatherData {
 	id: number;
 }
 
+export interface ForecastForTheDay {
+	dt: number;
+	main: WeatherData["main"];
+	weather: WeatherData["weather"];
+	wind: WeatherData["wind"];
+	dt_txt: string;
+}
+
+export interface ForecastCity {
+	name: string;
+	country: string;
+	sunrise: number;
+	sunset: number;
+}
+
 export interface ForecastData {
-	list: Array<{
-		dt: number;
-		main: WeatherData["main"];
-		weather: WeatherData["weather"];
-		wind: WeatherData["wind"];
-		dt_txt: string;
-	}>;
-	city: {
-		name: string;
-		country: string;
-		sunrise: number;
-		sunset: number;
-	};
+	list: ForecastForTheDay[];
+	city: ForecastCity;
 }
 
 export interface GeocodingResponse {

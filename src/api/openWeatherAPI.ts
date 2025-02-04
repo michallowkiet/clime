@@ -45,6 +45,14 @@ class OpenWeatherAPI {
 		});
 		return this.fetchData<GeocodingResponse[]>(url);
 	}
+
+	async searchLocation(query: string): Promise<GeocodingResponse[]> {
+		const url = this.createURL(`${API_CONFIG.GOE_CODING_URL}/direct`, {
+			q: query,
+			limit: 5,
+		});
+		return this.fetchData<GeocodingResponse[]>(url);
+	}
 }
 
 export const openWeatherAPI = new OpenWeatherAPI();
