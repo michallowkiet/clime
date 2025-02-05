@@ -2,6 +2,7 @@ import { useThemeContext } from "@/context/ThemeProvider";
 import CitySearch from "./CitySearch";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
+import ToggleUnits from "./ToggleUnits";
 
 const Navbar = () => {
 	const { currentTheme } = useThemeContext();
@@ -13,6 +14,8 @@ const Navbar = () => {
 				<div className="flex justify-between items-center gap-6">
 					{/* Search bar */}
 					<CitySearch />
+					{/* Toggle units */}
+					<ToggleUnits />
 
 					{/* Theme toggle */}
 					<ThemeToggle />

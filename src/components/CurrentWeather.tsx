@@ -1,4 +1,5 @@
 import { GeocodingResponse, WeatherData } from "@/api/types";
+import { TemperatureUnit } from "@/context/UnitProvider";
 import { formatTemperature } from "@/utils/helper";
 import { ArrowDown, ArrowUp, Droplets, Wind } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
@@ -6,9 +7,14 @@ import { Card, CardContent } from "./ui/card";
 interface CurrentWeatherProps {
 	weatherData: WeatherData | null;
 	locationName?: GeocodingResponse;
+	currentUnit?: TemperatureUnit;
 }
 
-const CurrentWeather = ({ weatherData, locationName }: CurrentWeatherProps) => {
+const CurrentWeather = ({
+	weatherData,
+	locationName,
+	currentUnit = "celsius",
+}: CurrentWeatherProps) => {
 	if (!weatherData) {
 		return null;
 	}
@@ -18,6 +24,7 @@ const CurrentWeather = ({ weatherData, locationName }: CurrentWeatherProps) => {
 		main: { temp, feels_like, humidity, temp_min, temp_max },
 		wind: { speed },
 	} = weatherData;
+
 	return (
 		<Card className="overflow-hidden">
 			<CardContent className="p-6">
@@ -35,23 +42,23 @@ const CurrentWeather = ({ weatherData, locationName }: CurrentWeatherProps) => {
 
 						<div className="flex items-center gap-4">
 							<p className="text-6xl font-bold tracking-tighter">
-								{formatTemperature(temp, "celsius")}
+								{formatTemperature(temp, currentUnit)}
 							</p>
 
 							<div className="space-y-1">
 								<p className="text-sm font-medium text-muted-foreground">
-									Feels like {formatTemperature(feels_like, "celsius")}
+									Feels like {formatTemperature(feels_like, currentUnit)}
 								</p>
 
 								<div className="flex gap-2 text-sm font-medium">
 									<span className="flex items-end gap-1 text-blue-500">
 										<ArrowDown className="w-3 h-4 self-end" />
-										{formatTemperature(temp_min, "celsius")}
+										{formatTemperature(temp_min, currentUnit)}
 									</span>
 
 									<span className="flex items-center gap-1 text-red-500">
 										<ArrowUp className="w-3 h-4 self-start" />
-										{formatTemperature(temp_max, "celsius")}
+										{formatTemperature(temp_max, currentUnit)}
 									</span>
 								</div>
 							</div>

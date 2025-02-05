@@ -1,4 +1,5 @@
 import { Coordinates } from "@/api/types";
+import { useUnitContext } from "@/context/UnitProvider";
 import { useWeatherQuery } from "@/hooks/useWeather";
 import { formatTemperature } from "@/utils/helper";
 import { Loader2, X } from "lucide-react";
@@ -14,6 +15,7 @@ type FavoriteCityProps = {
 };
 
 const FavoriteCity = ({ name, lat, lon, onDelete }: FavoriteCityProps) => {
+	const { currentUnit } = useUnitContext();
 	const navigate = useNavigate();
 	const { data: weatherData, isLoading } = useWeatherQuery({ lat, lon });
 
@@ -59,7 +61,7 @@ const FavoriteCity = ({ name, lat, lon, onDelete }: FavoriteCityProps) => {
 					</div>
 					<div className="ml-auto text-right">
 						<p className="text-xl font-semibold">
-							{formatTemperature(weatherData.main.temp, "celsius")}
+							{formatTemperature(weatherData.main.temp, currentUnit)}
 						</p>
 						<p className="text-xs capitalize text-muted-foreground">
 							{weatherData?.weather[0].description}

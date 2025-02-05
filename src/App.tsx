@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import Layout from "./components/Layout";
 import { ThemeProvider } from "./context/ThemeProvider";
+import { UnitProvider } from "./context/UnitProvider";
 import CityPage from "./pages/CityPage";
 import Dashboard from "./pages/Dashboard";
 
@@ -21,17 +22,19 @@ const queryClient = new QueryClient({
 const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider defaultTheme="dark" themeStorageKey="theme">
-				<BrowserRouter>
-					<Layout>
-						<Routes>
-							<Route path="/" element={<Dashboard />} />
-							<Route path="/city/:cityName" element={<CityPage />} />
-						</Routes>
-					</Layout>
-					<Toaster position="top-center" richColors={true} />
-				</BrowserRouter>
-			</ThemeProvider>
+			<UnitProvider defaultUnit="celsius">
+				<ThemeProvider defaultTheme="dark" themeStorageKey="theme">
+					<BrowserRouter>
+						<Layout>
+							<Routes>
+								<Route path="/" element={<Dashboard />} />
+								<Route path="/city/:cityName" element={<CityPage />} />
+							</Routes>
+						</Layout>
+						<Toaster position="top-center" richColors={true} />
+					</BrowserRouter>
+				</ThemeProvider>
+			</UnitProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);

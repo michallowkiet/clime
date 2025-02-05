@@ -1,5 +1,6 @@
 import { ForecastForTheDay, Wind } from "@/api/types";
 import { DailyForecast } from "@/components/WeatherForecast";
+import { TemperatureUnit } from "@/context/UnitProvider";
 import { format } from "date-fns";
 
 /**
@@ -9,7 +10,7 @@ import { format } from "date-fns";
  * @param unit - The temperature unit, either "celsius" or "fahrenheit".
  * @returns A string representing the formatted temperature.
  */
-export const formatTemperature = (temperature: number, unit: "celsius" | "fahrenheit") => {
+export const formatTemperature = (temperature: number, unit: TemperatureUnit) => {
 	return `${temperature.toFixed(0)}° ${unit === "celsius" ? "C" : "F"}`;
 };
 

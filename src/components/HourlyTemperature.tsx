@@ -1,4 +1,5 @@
 import { ForecastData } from "@/api/types";
+import { useUnitContext } from "@/context/UnitProvider";
 import { formatTemperature } from "@/utils/helper";
 import { format } from "date-fns";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -9,6 +10,7 @@ interface HourlyTemperatureProps {
 }
 
 const HourlyTemperature = ({ forecastData }: HourlyTemperatureProps) => {
+	const { currentUnit } = useUnitContext();
 	const chartData = forecastData.list.slice(0, 8).map((item) => ({
 		time: format(new Date(item.dt * 1000), "HH"),
 		temp: Math.round(item.main.temp),
@@ -37,7 +39,7 @@ const HourlyTemperature = ({ forecastData }: HourlyTemperatureProps) => {
 								fontSize={12}
 								tickLine={false}
 								axisLine={false}
-								tickFormatter={(value) => `${formatTemperature(value, "celsius")}`}
+								tickFormatter={(value) => `${formatTemperature(value, currentUnit)}`}
 							/>
 
 							<Tooltip
@@ -51,7 +53,7 @@ const HourlyTemperature = ({ forecastData }: HourlyTemperatureProps) => {
 															Temperature:
 														</span>
 														<span className="font-bold">
-															{formatTemperature(payload[0].value as number, "celsius")}
+															{formatTemperature(payload[0].value as number, currentUnit)}
 														</span>
 													</div>
 													<div className="flex flex-col">
@@ -59,7 +61,7 @@ const HourlyTemperature = ({ forecastData }: HourlyTemperatureProps) => {
 															Feels Like:
 														</span>
 														<span className="font-bold">
-															{formatTemperature(payload[1].value as number, "celsius")}
+															{formatTemperature(payload[1].value as number, currentUnit)}
 														</span>
 													</div>
 												</div>

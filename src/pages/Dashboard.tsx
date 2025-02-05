@@ -6,15 +6,25 @@ import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Button } from "@/components/ui/button";
 import WeatherDetails from "@/components/WeatherDetails";
 import WeatherForecast from "@/components/WeatherForecast";
+import { useUnitContext } from "@/context/UnitProvider";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/useWeather";
 import { RefreshCw } from "lucide-react";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+	const { currentUnit } = useUnitContext();
 	const { getLocation, error, isLoading, coords } = useGeolocation();
 	const weatherResult = useWeatherQuery(coords);
 	const forecastResult = useForecastQuery(coords);
 	const reverseGeolocationResult = useReverseGeocodeQuery(coords);
+
+	useEffect(() => {
+		if (coords) {
+			weatherResult.refetch();
+			forecastResult.refetch();
+		}
+	}, [currentUnit, coords]);
 
 	const handleRefresh = () => {
 		getLocation();
@@ -81,7 +91,11 @@ const Dashboard = () => {
 			<div className="grid gap-6">
 				<div className="flex flex-col lg:flex-row gap-6">
 					{/* Current Weather */}
-					<CurrentWeather weatherData={weatherResult.data} locationName={locationName} />
+					<CurrentWeather
+						weatherData={weatherResult.data}
+						locationName={locationName}
+						currentUnit={currentUnit}
+					/>
 					{/* Hourly temperature  */}
 					<HourlyTemperature forecastData={forecastResult.data} />
 				</div>
