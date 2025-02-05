@@ -73,5 +73,4 @@ Once the application is running, you can:
 - [x] Add dark/light mode toggle
 - [x] Add favorite locations functionality
 - [x] Add location page
-- [ ] Add unit system switching (metric/imperial)
-- [ ] Add mapping functionality
+- [x] Add unit system switching (metric/imperial)
